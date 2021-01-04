@@ -18,8 +18,7 @@ interface Params {
     survey: string
 }
 
-function InstrumentList(props: Props): ReactElement {
-    const {list, listError}: Props = props;
+function InstrumentList({list, listError}: Props): ReactElement {
     const {survey}: Params = useParams();
 
     const filteredSurvey: Survey[] = list.filter((obj: Survey) => {
@@ -62,19 +61,19 @@ function InstrumentList(props: Props): ReactElement {
                     </thead>
                     <tbody className="table__body">
                     {
-                        surveyInstruments.map((item: Instrument) => {
+                        surveyInstruments.map(({name, fieldPeriod, link}: Instrument) => {
                             return (
-                                <tr className="table__row" key={item.name} data-testid={"instrument-table-row"}>
+                                <tr className="table__row" key={name} data-testid={"instrument-table-row"}>
                                     <td className="table__cell ">
-                                        {item.name}
+                                        {name}
                                     </td>
                                     <td className="table__cell ">
-                                        {item.fieldPeriod}
+                                        {fieldPeriod}
                                     </td>
                                     <td className="table__cell ">
                                         <ExternalLink text={"Interview"}
-                                                      link={item.link}
-                                                      ariaLabel={"Launch interview for instrument " + item.name + " " + item.fieldPeriod}/>
+                                                      link={link}
+                                                      ariaLabel={`Launch interview for instrument ${name} ${fieldPeriod}`}/>
                                     </td>
                                 </tr>
                             );

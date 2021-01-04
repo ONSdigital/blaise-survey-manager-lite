@@ -3,8 +3,8 @@ import axios from "axios";
 import path from "path";
 import ejs from "ejs";
 import dotenv from "dotenv";
-import InstrumentRouter from "./Instuments";
 import {getEnvironmentVariables} from "./Config";
+import GetAllActiveInstruments from "./Instuments";
 
 const server = express();
 
@@ -28,8 +28,11 @@ server.use(
     express.static(path.join(__dirname, `${buildFolder}/static`)),
 );
 
-// Load api Instruments routes from InstrumentRouter
-server.use("/api", InstrumentRouter(BLAISE_API_URL, VM_EXTERNAL_WEB_URL));
+// An api endpoint that returns list of installed instruments
+server.get("/api/instruments", (req: Request, res: Response) => {
+        GetAllActiveInstruments(res, BLAISE_API_URL, VM_EXTERNAL_WEB_URL);
+    }
+);
 
 // Health Check endpoint
 server.get("/health_check", async function (req: Request, res: Response) {

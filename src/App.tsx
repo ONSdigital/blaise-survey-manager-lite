@@ -35,47 +35,47 @@ function App(): ReactElement {
 
     const [externalClientUrl, setExternalClientUrl] = useState<string>("External URL should be here");
     const [externalCATIUrl, setExternalCATIUrl] = useState<string>("/Blaise");
+    const [surveys, setSurveys] = useState<Survey[]>([]);
+    const [listError, setListError] = useState<listError>({error: false, message: "Loading ..."});
 
-
-    useEffect(function retrieveVariables() {
+    function retrieveVariables() {
         setExternalClientUrl(isDevEnv() ?
             process.env.REACT_APP_VM_EXTERNAL_CLIENT_URL || externalClientUrl : (window as unknown as window).VM_EXTERNAL_CLIENT_URL);
         setExternalCATIUrl(isDevEnv() ?
             process.env.REACT_APP_CATI_DASHBOARD_URL || externalCATIUrl : (window as unknown as window).CATI_DASHBOARD_URL);
-    }, [externalClientUrl, externalCATIUrl]);
-
-    const [surveys, setSurveys] = useState<Survey[]>([]);
-    const [listError, setListError] = useState<listError>({error: false, message: "Loading ..."});
+    }
 
     useEffect(() => {
         getList();
-    }, []);
+        retrieveVariables();
+    }, [externalClientUrl, externalCATIUrl]);
 
     function getList() {
         fetch("/api/instruments")
             .then((r: Response) => {
-                if (r.status !== 200) {
-                    throw r.status + " - " + r.statusText;
+                const {status, statusText} = r;
+                if (status !== 200) {
+                    throw `${status} - ${statusText}`;
                 }
                 r.json()
-                    .then((json: Survey[]) => {
-                        if (!Array.isArray(json)) {
+                    .then((surveys: Survey[]) => {
+                        if (!Array.isArray(surveys)) {
                             throw "Json response is not a list";
                         }
-                        console.log("Retrieved instrument list, " + json.length + " items/s");
-                        isDevEnv() && console.log(json);
-                        setSurveys(json);
+                        console.log(`Retrieved instrument list, ${surveys.length} item/s`);
+                        isDevEnv() && console.log(surveys);
+                        setSurveys(surveys);
                         setListError({error: false, message: ""});
 
                         // If the list is empty then show this message in the list
-                        if (json.length === 0) setListError({error: false, message: "No active surveys found."});
+                        if (surveys.length === 0) setListError({error: false, message: "No active surveys found."});
                     })
                     .catch((error) => {
-                        isDevEnv() && console.error("Unable to read json from response, error: " + error);
+                        isDevEnv() && console.error(`Unable to read json from response, error: ${error}`);
                         setListError({error: true, message: "Unable to load surveys"});
                     });
             }).catch((error) => {
-                isDevEnv() && console.error("Failed to retrieve instrument list, error: " + error);
+                isDevEnv() && console.error(`Failed to retrieve instrument list, error: ${error}`);
                 setListError({error: true, message: "Unable to load surveys"});
             }
         );

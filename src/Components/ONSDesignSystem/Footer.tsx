@@ -5,7 +5,7 @@ interface Props {
 }
 
 
-function Footer(props: Props): ReactElement {
+function Footer({external_client_url}: Props): ReactElement {
     return (
         <>
             <footer className="footer">
@@ -19,7 +19,7 @@ function Footer(props: Props): ReactElement {
                                     <dt className="metadata__term grid__col col-6@m"> Telephone
                                         server park for Blaise Server Manager:
                                     </dt>
-                                    <dd className="metadata__value grid__col col-6@m">{props.external_client_url}</dd>
+                                    <dd className="metadata__value grid__col col-6@m">{external_client_url}</dd>
                                 </dl>
                                 <hr className="footer__hr"/>
                             </div>

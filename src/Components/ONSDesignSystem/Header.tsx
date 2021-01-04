@@ -5,7 +5,7 @@ interface Props {
 }
 
 
-function Header(props: Props): ReactElement {
+function Header({title}: Props): ReactElement {
     return (
         <>
             <header className="header header--internal">
@@ -31,7 +31,7 @@ function Header(props: Props): ReactElement {
                         <div
                             className="grid grid--gutterless grid--flex grid--between grid--vertical-center grid--no-wrap">
                             <div className="grid__col col-auto u-flex-shrink">
-                                <div className="header__title">{props.title}</div>
+                                <div className="header__title">{title}</div>
                             </div>
                         </div>
                     </div>

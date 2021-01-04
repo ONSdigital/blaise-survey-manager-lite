@@ -12,8 +12,7 @@ interface Props {
     listError: listError
 }
 
-function SurveyList(props: Props): ReactElement {
-    const {list, listError} = props;
+function SurveyList({list, listError}: Props): ReactElement {
 
     return <>
         <h2>Surveys</h2>
@@ -33,14 +32,14 @@ function SurveyList(props: Props): ReactElement {
                     </thead>
                     <tbody className="table__body">
                     {
-                        list.map((item: Survey) => {
+                        list.map(({survey}: Survey) => {
                             return (
-                                <tr className="table__row" key={item.survey} data-testid={"survey-table-row"}>
+                                <tr className="table__row" key={survey} data-testid={"survey-table-row"}>
                                     <td className="table__cell ">
-                                        {item.survey}
+                                        {survey}
                                     </td>
                                     <td className="table__cell ">
-                                        <Link to={"/survey/" + item.survey}>View active questionnaires</Link>
+                                        <Link to={`/survey/${survey}`}>View active questionnaires</Link>
                                     </td>
                                 </tr>
                             );
