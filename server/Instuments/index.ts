@@ -5,14 +5,16 @@ import _ from "lodash";
 import Functions from "../Functions";
 
 
-export default function InstrumentRouter(BLAISE_API_URL: string, VM_EXTERNAL_WEB_URL: string): Router {
+export default function InstrumentRouter(BLAISE_API_URL: string, VM_EXTERNAL_WEB_URL: string, logger: any): Router {
     "use strict";
     const instrumentRouter = express.Router();
 
 
     // An api endpoint that returns list of installed instruments
     instrumentRouter.get("/instruments", (req: Request, res: Response) => {
-        console.log("get list of items");
+        // console.log("get list of items");
+        logger(req, res);
+        req.log.info("Get list of items");
 
         function activeDay(instrument: Instrument) {
             return instrument.activeToday === true;
@@ -28,12 +30,12 @@ export default function InstrumentRouter(BLAISE_API_URL: string, VM_EXTERNAL_WEB
                     element.fieldPeriod = Functions.field_period_to_text(element.name);
                 });
 
-                console.log("Retrieved instrument list, " + instruments.length + " item/s");
+                req.log.info("Retrieved instrument list, " + instruments.length + " item/s");
 
                 // Filter the instruments by activeToday filed
                 instruments = instruments.filter(activeDay);
 
-                console.log("Retrieved active instruments, " + instruments.length + " item/s");
+                req.log.info("Retrieved active instruments, " + instruments.length + " item/s");
 
 
                 const surveys: Survey[] = _.chain(instruments)
@@ -45,9 +47,7 @@ export default function InstrumentRouter(BLAISE_API_URL: string, VM_EXTERNAL_WEB
                 return res.json(surveys);
             })
             .catch(function (error) {
-                // handle error
-                console.error("Failed to retrieve instrument list");
-                console.error(error);
+                req.log.error(error, "Failed to retrieve instrument list");
                 return res.status(500).json(error);
             });
     });
