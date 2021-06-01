@@ -5,7 +5,7 @@ export const survey_list_with_OPN_and_LMS_with_one_active_instrument_each: Surve
         survey: "OPN",
         instruments: [
             {
-                activeForTelephoneOperators: true,
+                activeToday: true,
                 fieldPeriod: "July 2020",
                 expired: false,
                 installDate: "2020-12-11T11:53:55.5612856+00:00",
@@ -21,7 +21,7 @@ export const survey_list_with_OPN_and_LMS_with_one_active_instrument_each: Surve
         survey: "LMS",
         instruments: [
             {
-                activeForTelephoneOperators: true,
+                activeToday: true,
                 fieldPeriod: "Unknown",
                 expired: false,
                 installDate: "2020-12-11T11:53:55.5612856+00:00",
@@ -40,7 +40,7 @@ export const survey_list_with_OPN_with_one_active_instrument: Survey[] = [
         survey: "OPN",
         instruments: [
             {
-                activeForTelephoneOperators: true,
+                activeToday: true,
                 fieldPeriod: "July 2020",
                 expired: false,
                 installDate: "2020-12-11T11:53:55.5612856+00:00",
@@ -59,7 +59,7 @@ export const survey_list_with_OPN_with_two_active_instruments: Survey[] = [
         survey: "OPN",
         instruments: [
             {
-                activeForTelephoneOperators: true,
+                activeToday: true,
                 fieldPeriod: "July 2020",
                 expired: false,
                 installDate: "2020-12-10T11:53:55.5612856+00:00",
@@ -70,7 +70,7 @@ export const survey_list_with_OPN_with_two_active_instruments: Survey[] = [
                 surveyDays: []
             },
             {
-                activeForTelephoneOperators: true,
+                activeToday: true,
                 fieldPeriod: "April 2020",
                 expired: false,
                 installDate: "2020-12-11T11:53:55.5612856+00:00",
@@ -89,7 +89,7 @@ export const survey_list_with_OPN_with_three_active_instruments: Survey[] = [
         survey: "OPN",
         instruments: [
             {
-                activeForTelephoneOperators: true,
+                activeToday: true,
                 fieldPeriod: "July 2020",
                 expired: false,
                 installDate: "2020-12-10T11:53:55.5612856+00:00",
@@ -100,7 +100,7 @@ export const survey_list_with_OPN_with_three_active_instruments: Survey[] = [
                 surveyDays: []
             },
             {
-                activeForTelephoneOperators: true,
+                activeToday: true,
                 fieldPeriod: "January 2021",
                 expired: false,
                 installDate: "2020-12-12T11:53:55.5612856+00:00",
@@ -111,7 +111,7 @@ export const survey_list_with_OPN_with_three_active_instruments: Survey[] = [
                 surveyDays: []
             },
             {
-                activeForTelephoneOperators: true,
+                activeToday: true,
                 fieldPeriod: "April 2020",
                 expired: false,
                 installDate: "2020-12-11T11:53:55.5612856+00:00",

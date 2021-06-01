@@ -13,7 +13,7 @@ const surveyListReturned: Survey[] = [
         survey: "OPN",
         instruments: [
             {
-                activeForTelephoneOperators: true,
+                activeToday: true,
                 fieldPeriod: "July 2020",
                 expired: false,
                 installDate: "2020-12-11T11:53:55.5612856+00:00",
