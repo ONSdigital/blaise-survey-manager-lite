@@ -7,17 +7,24 @@ describe("Config setup", () => {
     });
 
 
-
-
     it("should return the correct environment variables", () => {
-        const {VM_EXTERNAL_CLIENT_URL, VM_EXTERNAL_WEB_URL, BLAISE_API_URL, CATI_DASHBOARD_URL} = getEnvironmentVariables();
-
+        const {
+            VM_EXTERNAL_CLIENT_URL,
+            VM_EXTERNAL_WEB_URL,
+            BLAISE_API_URL,
+            CATI_DASHBOARD_URL,
+            BIMS_CLIENT_ID,
+            BIMS_API_URL
+        } = getEnvironmentVariables();
 
         expect(VM_EXTERNAL_CLIENT_URL).toBe("external-client-url");
         expect(VM_EXTERNAL_WEB_URL).toBe("external-web-url");
         expect(BLAISE_API_URL).toBe("mock");
         expect(CATI_DASHBOARD_URL).toBe("https://external-web-url/Blaise");
+        expect(BIMS_CLIENT_ID).toBe("mock@id");
+        expect(BIMS_API_URL).toBe("mock-bims-api");
     });
+
 
     it("should return variables with default string if variables are not defined", () => {
         process.env = Object.assign({
@@ -27,12 +34,20 @@ describe("Config setup", () => {
             VM_INTERNAL_URL: undefined,
         });
 
-        const {VM_EXTERNAL_CLIENT_URL, VM_EXTERNAL_WEB_URL, BLAISE_API_URL, CATI_DASHBOARD_URL} = getEnvironmentVariables();
-
+        const {
+            VM_EXTERNAL_CLIENT_URL,
+            VM_EXTERNAL_WEB_URL,
+            BLAISE_API_URL,
+            CATI_DASHBOARD_URL,
+            BIMS_CLIENT_ID,
+            BIMS_API_URL
+        } = getEnvironmentVariables();
 
         expect(VM_EXTERNAL_CLIENT_URL).toBe("ENV_VAR_NOT_SET");
         expect(VM_EXTERNAL_WEB_URL).toBe("ENV_VAR_NOT_SET");
         expect(BLAISE_API_URL).toBe("ENV_VAR_NOT_SET");
         expect(CATI_DASHBOARD_URL).toBe("https://undefined/Blaise");
+        expect(BIMS_CLIENT_ID).toBe("ENV_VAR_NOT_SET");
+        expect(BIMS_API_URL).toBe("ENV_VAR_NOT_SET");
     });
 });

@@ -1,10 +1,15 @@
+interface ApiInstrument {
+    activeToday: boolean;
+    installDate: string;
+    name: string;
+    serverParkName: string;
+}
+
 interface Instrument {
     installDate: string
     name: string
-    expired: boolean
     serverParkName: string
     activeToday: boolean
-    surveyDays: string[]
     link: string
     fieldPeriod: string
     surveyTLA: string
@@ -15,4 +20,4 @@ interface Survey {
     survey: string
 }
 
-export type {Instrument, Survey};
+export type {ApiInstrument, Instrument, Survey};

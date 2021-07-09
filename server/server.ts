@@ -18,7 +18,12 @@ if (process.env.NODE_ENV !== "production") {
 const buildFolder = "../../build";
 
 // load the .env variables in the server
-const {VM_EXTERNAL_CLIENT_URL, VM_EXTERNAL_WEB_URL, BLAISE_API_URL, CATI_DASHBOARD_URL} = getEnvironmentVariables();
+const {VM_EXTERNAL_CLIENT_URL, 
+    VM_EXTERNAL_WEB_URL, 
+    BLAISE_API_URL, 
+    CATI_DASHBOARD_URL, 
+    BIMS_CLIENT_ID,
+    BIMS_API_URL} = getEnvironmentVariables();
 
 // treat the index.html as a template and substitute the values at runtime
 server.set("views", path.join(__dirname, buildFolder));
@@ -29,7 +34,7 @@ server.use(
 );
 
 // Load api Instruments routes from InstrumentRouter
-server.use("/api", InstrumentRouter(BLAISE_API_URL, VM_EXTERNAL_WEB_URL));
+server.use("/api", InstrumentRouter(BLAISE_API_URL, VM_EXTERNAL_WEB_URL, BIMS_CLIENT_ID, BIMS_API_URL));
 
 // Health Check endpoint
 server.get("/health_check", async function (req: Request, res: Response) {
